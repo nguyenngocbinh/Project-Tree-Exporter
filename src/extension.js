@@ -114,8 +114,15 @@ async function buildTree() {
   }
 
   await walk(root, '', 0);
-  const tree = lines.join(String.fromCharCode(10));
-  const markdown = '# Project Tree: ' + rootName + String.fromCharCode(10, 10) + '```text' + String.fromCharCode(10) + tree + String.fromCharCode(10) + '```' + String.fromCharCode(10);
+  const tree = lines.join('\n');
+  const markdown = [
+    '# Project Tree: ' + rootName,
+    '',
+    '```text',
+    tree,
+    '```',
+    ''
+  ].join('\n');
   return { root, tree, markdown };
 }
 
