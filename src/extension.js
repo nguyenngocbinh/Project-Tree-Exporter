@@ -114,10 +114,7 @@ async function buildTree() {
   }
 
   await walk(root, '', 0);
-  const tree = lines.join('\n');
-  const markdown = `# Project Tree: ${rootName}\n\n``
-    + ```text\n${tree}\n```\n`;
-  return { root, tree, markdown };
+  const tree = lines.join('\\n');\n  const markdown = '# Project Tree: ' + rootName + '\\n\\n```text\\n' + tree + '\\n```\\n';\n  return { root, tree, markdown };
 }
 
 function deactivate() {}
