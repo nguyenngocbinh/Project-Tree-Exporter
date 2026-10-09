@@ -1,0 +1,64 @@
+{
+  "name": "project-tree-exporter",
+  "displayName": "Project Tree Exporter",
+  "description": "Generate, copy, and export a readable tree of your VS Code workspace.",
+  "version": "0.1.0",
+  "publisher": "nguyenngocbinh",
+  "license": "MIT",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:projectTree.generate",
+    "onCommand:projectTree.copy",
+    "onCommand:projectTree.export"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "projectTree.generate", "title": "Project Tree: Generate Preview" },
+      { "command": "projectTree.copy", "title": "Project Tree: Copy to Clipboard" },
+      { "command": "projectTree.export", "title": "Project Tree: Export to Markdown" }
+    ],
+    "menus": {
+      "explorer/context": [
+        { "command": "projectTree.generate", "group": "navigation" },
+        { "command": "projectTree.copy", "group": "navigation" },
+        { "command": "projectTree.export", "group": "navigation" }
+      ]
+    },
+    "configuration": {
+      "title": "Project Tree Exporter",
+      "properties": {
+        "projectTree.maxDepth": {
+          "type": "number",
+          "default": 8,
+          "minimum": 1,
+          "maximum": 30,
+          "description": "Maximum directory depth to include."
+        },
+        "projectTree.includeFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include files in the generated tree."
+        },
+        "projectTree.exclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            ".git", ".vscode", "node_modules", "venv", ".venv",
+            "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache",
+            "dist", "build", ".next", ".astro", "coverage"
+          ],
+          "description": "File and directory names to skip; matching is by name."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package",
+    "vscode:prepublish": "node --check src/extension.js"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.26.0"
+  }
+}
